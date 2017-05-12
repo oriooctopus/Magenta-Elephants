@@ -122,7 +122,23 @@ main {
           height: $titleInputHeight;
         }
       }
+      .askParameters {
+        padding: .5rem 8%;
+        div:first-child {
+          float: left;
+        }
+        .setPrice {
+          float: right;
+          h2 {
+            display: inline-block;
+            margin-top: 0;
+            margin-left: 1rem;
+            line-height: 23px;
+          }
+        }
+      }
       .askBody {
+        margin-top: 3.5rem;
         button {
           width: 25%;
         }
@@ -131,9 +147,6 @@ main {
           button {
             width: 75px;
             margin: 0.5rem;
-          }
-          button.filter.selected {
-            font-weight: 800;
           }
         }
       }

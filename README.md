@@ -45,7 +45,6 @@
 ## Requirements
 
 - React
-- Redux
 - Express
 - MySql
 - Socket
@@ -62,7 +61,8 @@ From within the root directory:
 
 - NPM run react-dev
 - NPM run server-dev
-- Go to localhost:8888
+- From the root directory run node spec/populate.js
+- Go to localhost:3000
 
 ### Roadmap
 

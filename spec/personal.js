@@ -12,7 +12,6 @@ const mysql = require('mysql');
 
 chai.use(chaiHttp);
 const agent = chai.request.agent('http://localhost:3000');
-// test table allows unique usernames
 
 var questionArray = [{
   username: 'exampleUser',
@@ -46,6 +45,7 @@ var clearDB = function(connection, tablenames, done) {
     connection.query('DROP TABLE IF EXISTS ' + tablename, function() {
       count++;
       if (count === tablenames.length) {
+        console.log(123);
         return done();
       }
     })
@@ -186,7 +186,7 @@ describe('authentication', function() {
 
 describe('questions: ', function() {
   var dbConnection;
-  var tableNames = ['Sessions', 'Users', 'Questions'];
+  var tableNames = ['QuestionTags', 'Tags', 'Sessions', 'Users', 'Questions'];
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
       user: 'root',
@@ -224,6 +224,7 @@ describe('questions: ', function() {
           username: 'exampleUser',
           title: 'this is an example title',
           body: 'this is an example body',
+          tags: '[]',
           price: 20
         };
 
@@ -235,7 +236,7 @@ describe('questions: ', function() {
               // gives time for question to be inserted into db
               directDb.Question.sync()
                 .then(() => {
-                  db.Question.retrieveAll(res, (response) => {
+                  db.Question.getQuestions('', (response) => {
                     expect(response.length).to.equal(1);
                     done();
                   })
@@ -248,7 +249,7 @@ describe('questions: ', function() {
 
 describe('ratings:', function() {
   var dbConnection;
-  var tableNames = ['Sessions', 'Users', 'Questions'];
+  var tableNames = ['Sessions', 'Questions', 'Users'];
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
       user: 'root',
@@ -289,9 +290,11 @@ describe('ratings:', function() {
   // NO TESTS YET
 });
 
+
+
 describe('users: ', function() {
   var dbConnection;
-  var tableNames = ['Sessions', 'Users', 'Questions'];
+  var tableNames = ['Sessions', 'Questions', 'Users'];
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
       user: 'root',
@@ -308,7 +311,7 @@ describe('users: ', function() {
   });
 
   it('a user starts off with 100 points', function(done) {
-    db.User.createUser('exampleUser', '')
+    db.User.createUser('exampleUser', '', '')
       .then(() => {
         db.User.getUserInfo('exampleUser', (userInfo) => {
           expect(userInfo.currentCurrency).to.equal(100);

@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
             <h1>Asked Questions</h1>
             <RecentQuestionsList 
               questions={this.props.userInfo.recentNoviceQuestions} 
-              changeProp={this.props.changeProp}
+              changeIndexProp={this.props.changeIndexProp}
             />         
           </div>
           <div className="questionRatings">
@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
             <h1>Answered Questions</h1>
             <RecentQuestionsList 
               questions={this.props.userInfo.recentExpertQuestions} 
-              changeProp={this.props.changeProp}
+              changeIndexProp={this.props.changeIndexProp}
             />
           </div>
         </div>

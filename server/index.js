@@ -49,25 +49,32 @@ app.get('/callback', function(req, res, next) {
 
 app.get('/expertRating', function(req, res) {
   db.User.getRating('expert', req.body.username)
-    .then((result) => {
-      res.end(result);
-    });
+  .then((result) => {
+    res.end(result);
+  });
 });
 
 app.get('/noviceRating', function(req, res) {
   db.User.getRating('novice', req.body.username)
-    .then((result) => {
-      res.end(result);
-    })
+  .then((result) => {
+    res.end(result);
+  })
+});
+
+app.get('/questions/*', function(req, res) {
+  var slashIndex = req.url.lastIndexOf('/') + 1;
+  var tag = req.url.substring(slashIndex).toLowerCase();
+
+  db.Tag.getQuestionsFromTag(tag, questions => res.end(JSON.stringify(questions)));
 });
 
 app.get('/questions', function (req, res) {
-  db.Question.retrieveAll(res, arr => res.send(arr));
+  db.Question.getQuestions('', arr => res.send(arr));
 });
 
 app.post('/questions', jsonParser, function(req, res) {
+  req.body.tags = JSON.parse(req.body.tags);
   db.Question.createNewQuestion(req.body.username, req.body.title, req.body.body, Number(req.body.price), req.body.tags, req.body.minExpertRating );
-  console.log('USERNAME IN POST ', req.body.username)
   db.User.updateCurrency(req.body.username, Number(req.body.price));
   res.end();
 });
@@ -77,9 +84,9 @@ app.put('/questions', function(req, res) {
   delete req.body.questionId;
 
   db.Question.updateQuestion(questionId, req.body)
-    .then((result) => {
-      res.end(result);
-    });
+  .then((result) => {
+    res.end(result);
+  });
 });
 
 app.use(express.static(process.env.PWD + '/client'));
@@ -87,7 +94,6 @@ app.use(express.static(process.env.PWD + '/client'));
 app.get('/users*', function(req, res) {
   var slashIndex = req.url.lastIndexOf('/') + 1;
   var user = req.url.substring(slashIndex);
-
   db.User.getUserInfo(user, userInfo => res.end(JSON.stringify(userInfo)));
 });
 

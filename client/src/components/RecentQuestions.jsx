@@ -4,14 +4,10 @@ import QuestionsList from './QuestionsList.jsx';
 const RecentQuestions = props => (
   <section className="recentQuestions">
     <h1 className="headline">Recent Questions</h1>
-    <select onChange={ e => props.filter(e)} >
-      <option value="all">Choose a filter...</option>
-      {props.filters.map(filter => 
-        <option value={filter.id} key={filter.id} >{filter.title}</option>
-      )}
-    </select>
-    <QuestionsList questions={props.questions} filters={props.filters} />
+    <input placeholder="search" value={props.searchVal} onChange={props.changeSearch} />
+    <QuestionsList questions={props.questions} />
   </section>
 );
+
 
 export default RecentQuestions;
