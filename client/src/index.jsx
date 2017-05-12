@@ -13,7 +13,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       personalInfo: {},
-      userInfo: {}
+      userInfo: {},
+      currentQuestion: {}
     }
     this.changeUserCurrency = this.changeUserCurrency.bind(this);
     this.changeProp = this.changeProp.bind(this);
@@ -65,13 +66,13 @@ class App extends React.Component {
         <main>
           <Nav currentCurrency={this.state.personalInfo.currentCurrency} />
           <Switch>
-            <Route path="/Answer/:number" render={this.withProps(Answer, {questions: this.state.questions})}/>
-            <Route exact path="/LiveAnswer" component={LiveAnswer} />
+            <Route path="/Answer" component={Answer} />
             <Route render={props => (
               <SplitLayout
+                currentQuestion={this.state.currentQuestion}
                 personalInfo={this.state.personalInfo}
                 changeUserCurrency={this.changeUserCurrency}
-                changeProp={this.changeProp}
+                changeIndexProp={this.changeProp}
                 username={this.username}
                 redirect={this.state.redirect}
               />

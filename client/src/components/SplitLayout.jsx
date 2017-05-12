@@ -13,19 +13,12 @@ class SplitLayout extends React.Component {
     this.state = {
       questions: [],
       recentlyAsked: [],
-      currentQuestion: {},
       searchVal: ''
     };
-    this.changeSplitLayoutProp = this.changeSplitLayoutProp.bind(this);
+    this.answerQuestion = this.answerQuestion.bind(this);
     this.changeSearch = this.changeSearch.bind(this);
     this.searchTags = this.searchTags.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
-  }
-
-  changeSplitLayoutProp(key, val) {
-    this.setState({
-      [key]: val
-    });
   }
 
   componentWillMount() {
@@ -69,10 +62,16 @@ class SplitLayout extends React.Component {
     });
   }
 
+  answerQuestion(index) {
+    clearInterval(this.getQuestionsInterval);
+    this.props.changeIndexProp('currentQuestion', this.state.questions[index]);
+  }
+
   render() {
     return (
       <div className="main">
         <RecentQuestions 
+          answerQuestion={this.answerQuestion}
           changeSearch={this.changeSearch}
           questions={this.state.questions}
         />
@@ -80,7 +79,7 @@ class SplitLayout extends React.Component {
           <Route exact path="/Ask" render={innerProps => (
             <Ask 
               changeUserCurrency={this.props.changeUserCurrency}
-              changeSplitLayoutProp={this.changeSplitLayoutProp}
+              changeIndexProp={this.props.changeIndexProp}
               personalInfo={this.props.personalInfo}
               username={this.props.username}
               questions={this.state.questions}
@@ -90,11 +89,11 @@ class SplitLayout extends React.Component {
           <Route exact path="/Dashboard" render={innerProps => (
             <Dashboard 
               userInfo={this.props.personalInfo}
-              changeIndexProp={this.props.changeProp}
+              changeIndexProp={this.props.changeIndexProp}
             /> 
           )} />
           <Route exact path="/Asked/Recent" render={innerProps => (
-            <AskedQuestion question={this.state.currentQuestion} />
+            <AskedQuestion question={this.props.currentQuestion} />
           )} />
           <Route path="/Asked/:number" render={innerProps => (
             <AskedQuestion question={this.state.questions[innerProps.match.params.number]} />

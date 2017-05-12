@@ -5,7 +5,11 @@ const RecentQuestions = props => (
   <section className="recentQuestions">
     <h1 className="headline">Recent Questions</h1>
     <input placeholder="search" value={props.searchVal} onChange={props.changeSearch} />
-    <QuestionsList questions={props.questions} />
+    <QuestionsList 
+      answerQuestion={props.answerQuestion}
+      questions={props.questions} 
+      changeIndexProp={props.changeIndexProp} 
+    />
   </section>
 );
 

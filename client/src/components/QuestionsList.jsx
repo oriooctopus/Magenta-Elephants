@@ -5,6 +5,7 @@ const QuestionsList = props => (
   <ul className="questionsList">
     { props.questions.map((question, index) =>
       <QuestionsListItem 
+        answerQuestion={props.answerQuestion}
         question={question} 
         index={index} 
         key={index} 

@@ -247,51 +247,6 @@ describe('questions: ', function() {
   });
 });
 
-describe('ratings:', function() {
-  var dbConnection;
-  var tableNames = ['Sessions', 'Questions', 'Users'];
-  beforeEach(function(done) {
-    dbConnection = mysql.createConnection({
-      user: 'root',
-      password: '',
-      database: '4um'
-    });
-    dbConnection.connect(function(err) {
-      if (err) {
-        return done(err);
-      } else {
-        clearDB(dbConnection, tableNames, done);
-      }
-    });
-
-    db.User.createUser('exampleUser', '')
-      .then(() => {
-        db.User.createUser('exampleUser2', '')
-          .then(() => {
-            var counter = 0;
-
-            for (var i = 0; i < questionArray.length; i++) {
-              chai.request('http://localhost:3000/questions').
-                post('/').
-                send(exampleObj).
-                end((err, res) => { 
-                  counter++;
-                  if (counter.length === questionArray.length) {
-                    done();
-                  }
-                });
-            }
-          })
-      });
-
-
-  });
-
-  // NO TESTS YET
-});
-
-
-
 describe('users: ', function() {
   var dbConnection;
   var tableNames = ['Sessions', 'Questions', 'Users'];

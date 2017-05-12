@@ -90,11 +90,10 @@ class Ask extends React.Component {
         success: (data) => {
           this.props.changeUserCurrency(this.state.askPrice);
           this.setState({
-            currentQuestion: currentQuestion,
             redirect: true,
             tags: ['']
           })
-          this.props.changeSplitLayoutProp('currentQuestion', currentQuestion);
+          this.props.changeIndexProp('currentQuestion', currentQuestion);
         },
         error: (err) => {
           console.log('error with submitting answer', err)
