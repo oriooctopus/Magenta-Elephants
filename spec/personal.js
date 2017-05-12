@@ -56,7 +56,7 @@ var clearDB = function(connection, tablenames, done) {
 
 describe('Successfully authenticating through github', function() {
   var dbConnection;
-  var tableNames = ['Sessions', 'Users', 'Questions'];
+  var tableNames = ['QuestionTags', 'Tags', 'Sessions', 'Users', 'Questions', 'Session'];
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
       user: 'root',
