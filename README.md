@@ -49,19 +49,13 @@
 - MySql
 - Socket
 
-## Development
-
-### Installing Dependencies
-
-From within the root directory:
-
-- NPM install
-
 ### Getting Started 
 
+- NPM install
 - NPM run react-dev
 - NPM run server-dev
-- From the root directory run node spec/populate.js
+- From the root directory run node populateDB.js
+- If necessary also run npm run test to clear and repopulate databases
 - Go to localhost:3000
 
 ### Roadmap
